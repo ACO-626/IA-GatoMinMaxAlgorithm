@@ -211,7 +211,7 @@ namespace MainForm
                     if (matrixConceptual[i] == 0)
                     {
                         matrixConceptual[i] = signMax;
-                        puntuacion = minimax(matrixConceptual, profunidad + 1, false, 4);
+                        puntuacion = minimax(matrixConceptual, profunidad + 1, true, 1);
                         matrixConceptual[i] = 0;
                         
                         if(puntuacion > bestValue)
@@ -231,8 +231,8 @@ namespace MainForm
                     //Si la posición esta disponible
                     if (matrixConceptual[i] == 0)
                     {
-                        matrixConceptual[i] = 4;
-                        puntuacion = minimax(matrixConceptual, profunidad + 1, true, 1);
+                        matrixConceptual[i] = signMax;
+                        puntuacion = minimax(matrixConceptual, profunidad + 1, false, 4);
                         matrixConceptual[i] = 0;
                         if (puntuacion < bestValue)
                         {
@@ -411,7 +411,7 @@ namespace MainForm
                         
                         matrixConceptual[i] = 4;
                         
-                        int value = minimax(matrixConceptual,0,true,1);
+                        int value = minimax(matrixConceptual,0,false,1);
                         
                         matrixConceptual[i] = 0;
 
@@ -522,7 +522,16 @@ namespace MainForm
             }
             else if(!manoRandom)
             {
-                this.labelTurn.Text = "Turno " + simbolNXT;
+                if(turno>8)
+                {
+                    enableGame(false);
+                    labelTurn.Text = "Empate";
+                }
+                else
+                {
+                    this.labelTurn.Text = "Turno " + simbolNXT;
+                }
+                
             }
 
         }
@@ -555,26 +564,6 @@ namespace MainForm
                 return 0;
             }
             
-
-            /*
-            if ( matrixConceptual[1] == 1)
-            {
-                labelTurn.Text = "El ganador es X";
-                enableGame(false);
-                winer = true;
-                valorWin = 1;
-            }
-            else if (row1 == 12 || row2 == 12 || row3 == 12 || column1 == 12 || column2 == 12 || column3 == 12 || diag1 == 12 || diag2 == 12)
-            {
-                labelTurn.Text = "El ganador es O";
-                enableGame(false);
-                winer = true;
-                valorWin = 4;
-            }
-            else if (!manoRandom)
-            {
-                this.labelTurn.Text = "Turno " + simbolNXT;
-            }*/
 
         }
         #endregion
