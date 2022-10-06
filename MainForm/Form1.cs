@@ -33,8 +33,8 @@ namespace MainForm
         byte turno=1;
 
         int[,] matrix = new int[3, 3];
-        bool[] matrixBool = new bool[9];
-
+        //bool[] matrixBool = new bool[9];
+        byte[] matrixConceptual = new byte[9];
         //Tiene cuatro niveles de profundidad máximo 8 posibles tiros, 9 casillas
         byte[,,] arbol = new byte[4, 8, 9];
         #endregion
@@ -42,15 +42,26 @@ namespace MainForm
         #region PredicciónArbol
         private void prediceArbol(byte casilla, byte signoOfMin)
         {
-            
-            byte[,] arbol = new byte[estimaMatrices(turno,4),9];
+            int estimado = estimaMatrices(turno, 4);
+            byte[,] arbol = new byte[estimado,9];
+
+            //Heredo a todos los hijos el estado actual
+            for(int i = 0; i<estimado;i++)
+            {
+                for(int j = 0;j<9;j++)
+                {
+                    arbol[i, j] = matrixConceptual[j];
+                }
+                
+            }
+
         }
         #endregion
 
         #region Estimación de Matrices
-        private long estimaMatrices(int turno,int pasos)
+        private int estimaMatrices(int turno,int pasos)
         {
-            long numMat = 0;
+            int numMat = 0;
             if (turno<6)
             {
                 
@@ -71,7 +82,7 @@ namespace MainForm
         #endregion
 
         #region CalculoFactorial
-        private long factorial(int n)
+        private int factorial(int n)
         {
             if (n == 1 || n == 0)
             {
@@ -98,19 +109,7 @@ namespace MainForm
         public FormMain()
         {
             InitializeComponent();
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    matrix[i, j] = 0;
-                }
-            }
-            for (int i = 0; i < 9; i++)
-            {
-                
-                    matrixBool[i] = false;
-                
-            }
+            reset();
         }
         #endregion
 
@@ -153,6 +152,22 @@ namespace MainForm
         {
             turno = 1;
             turnoX = true;
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    matrix[i, j] = 0;
+                }
+            }
+            
+            for (int i = 0; i < 9; i++)
+            {
+
+                matrixConceptual[i] = 0;
+
+            }
+
             label1.Text = " ";
             label2.Text = " ";
             label3.Text = " ";
@@ -173,6 +188,7 @@ namespace MainForm
              diag2 = 0;
              winer = false;
              enableGame(true);
+            
         }
         #endregion
 
@@ -301,16 +317,26 @@ namespace MainForm
             }            
             whoWin();
             turno++;
-            labelProve2.Text = turno.ToString();
-            labelProve.Text = estimaMatrices(turno, 4).ToString();
-            matrixBool[casilla-1] = true;
+            //labelProve2.Text = turno.ToString();
+            //labelProve.Text = estimaMatrices(turno, 4).ToString();
+
+            //Para tener matriz conceptual
+            if(turnoX)
+            {
+                matrixConceptual[casilla - 1] = 1;
+            }else
+            {
+                matrixConceptual[casilla - 1] = 4;
+            }
+            
+            //matrixBool[casilla-1] = true;
 
             this.turnoX = !turnoX;
             if (manoRandom &&  tiroPC==false && !winer)
             {
                 Random random = new Random();
                 int azar = random.Next(9);
-                while(matrixBool[azar] == true)
+                while(matrixConceptual[azar] != 0)
                 {
                     azar = random.Next(9);
                 }
