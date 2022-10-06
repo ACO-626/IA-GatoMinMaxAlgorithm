@@ -30,10 +30,58 @@ namespace MainForm
         byte diag1 = 0;
         byte diag2 = 0;
 
+        byte turno=1;
 
         int[,] matrix = new int[3, 3];
         bool[] matrixBool = new bool[9];
+
+        //Tiene cuatro niveles de profundidad máximo 8 posibles tiros, 9 casillas
+        byte[,,] arbol = new byte[4, 8, 9];
         #endregion
+
+        #region PredicciónArbol
+        private void prediceArbol(byte casilla, byte signoOfMin)
+        {
+            
+            byte[,] arbol = new byte[estimaMatrices(turno,4),9];
+        }
+        #endregion
+
+        #region Estimación de Matrices
+        private long estimaMatrices(int turno,int pasos)
+        {
+            long numMat = 0;
+            if (turno<6)
+            {
+                
+
+                for (int i = 0; i < pasos; i++)
+                {
+                    numMat += factorial(10 - turno) / factorial(9 - turno - i);
+                }
+
+                return numMat;
+            }else
+            {
+                numMat = 64;
+                return numMat;
+            }
+            
+        }
+        #endregion
+
+        #region CalculoFactorial
+        private long factorial(int n)
+        {
+            if (n == 1 || n == 0)
+            {
+                return 1;
+            }              
+            return n * factorial(n - 1);
+        }
+        #endregion
+
+
 
         #region Banderas
         bool manoMano = true;
@@ -103,7 +151,7 @@ namespace MainForm
 
         private void reset()
         {
-            
+            turno = 1;
             turnoX = true;
             label1.Text = " ";
             label2.Text = " ";
@@ -131,7 +179,7 @@ namespace MainForm
         #region FuncionRellenar
         private void rellenar(int casilla, bool turnoX)
         {
-
+            
             if (turnoX)
             {
                 simbol = "X";
@@ -250,9 +298,11 @@ namespace MainForm
                 default:
 
                     break;
-            }
+            }            
             whoWin();
-
+            turno++;
+            labelProve2.Text = turno.ToString();
+            labelProve.Text = estimaMatrices(turno, 4).ToString();
             matrixBool[casilla-1] = true;
 
             this.turnoX = !turnoX;
@@ -388,6 +438,7 @@ namespace MainForm
         }
         #endregion
 
+        #region Contacto
         private void gitHubToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"https://github.com/ACO-626/IA-GatoMinMaxAlgorithm");
@@ -402,5 +453,6 @@ namespace MainForm
         {
             MessageBox.Show(" Email: ocampoalejandro.oc@gmail.com \n By ACO", "Contacto desarrollador");
         }
+        #endregion
     }
 }

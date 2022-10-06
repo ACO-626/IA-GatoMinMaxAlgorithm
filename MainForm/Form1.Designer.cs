@@ -60,6 +60,8 @@ namespace MainForm
             this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repositoriosACOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.emailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelProve = new System.Windows.Forms.Label();
+            this.labelProve2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -389,12 +391,38 @@ namespace MainForm
             this.emailToolStripMenuItem.Text = "Email";
             this.emailToolStripMenuItem.Click += new System.EventHandler(this.emailToolStripMenuItem_Click);
             // 
+            // labelProve
+            // 
+            this.labelProve.AutoSize = true;
+            this.labelProve.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.labelProve.Font = new System.Drawing.Font("Montserrat", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProve.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.labelProve.Location = new System.Drawing.Point(41, 448);
+            this.labelProve.Name = "labelProve";
+            this.labelProve.Size = new System.Drawing.Size(118, 33);
+            this.labelProve.TabIndex = 19;
+            this.labelProve.Text = "Turno X";
+            // 
+            // labelProve2
+            // 
+            this.labelProve2.AutoSize = true;
+            this.labelProve2.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.labelProve2.Font = new System.Drawing.Font("Montserrat", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProve2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.labelProve2.Location = new System.Drawing.Point(41, 415);
+            this.labelProve2.Name = "labelProve2";
+            this.labelProve2.Size = new System.Drawing.Size(118, 33);
+            this.labelProve2.TabIndex = 20;
+            this.labelProve2.Text = "Turno X";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.ClientSize = new System.Drawing.Size(779, 638);
+            this.Controls.Add(this.labelProve2);
+            this.Controls.Add(this.labelProve);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.labelAdvice);
             this.Controls.Add(this.labelTurn);
@@ -459,6 +487,8 @@ namespace MainForm
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem repositoriosACOToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem emailToolStripMenuItem;
+        private System.Windows.Forms.Label labelProve;
+        private System.Windows.Forms.Label labelProve2;
     }
 }
 
