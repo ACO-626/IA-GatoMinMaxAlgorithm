@@ -55,6 +55,11 @@ namespace MainForm
             this.inicioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comienzaXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comienzaOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label10 = new System.Windows.Forms.Label();
+            this.contactoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.repositoriosACOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.emailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -109,7 +114,8 @@ namespace MainForm
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.modoDeJuegoToolStripMenuItem,
-            this.inicioToolStripMenuItem});
+            this.inicioToolStripMenuItem,
+            this.contactoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(779, 24);
@@ -341,12 +347,55 @@ namespace MainForm
             this.comienzaOToolStripMenuItem.Text = "Comienza O";
             this.comienzaOToolStripMenuItem.Click += new System.EventHandler(this.comienzaOToolStripMenuItem_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Montserrat", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label10.Location = new System.Drawing.Point(717, 611);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(62, 18);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "By ACO";
+            // 
+            // contactoToolStripMenuItem
+            // 
+            this.contactoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gitHubToolStripMenuItem,
+            this.repositoriosACOToolStripMenuItem,
+            this.emailToolStripMenuItem});
+            this.contactoToolStripMenuItem.Name = "contactoToolStripMenuItem";
+            this.contactoToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.contactoToolStripMenuItem.Text = "Contacto";
+            // 
+            // gitHubToolStripMenuItem
+            // 
+            this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
+            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gitHubToolStripMenuItem.Text = "GitHub";
+            this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
+            // 
+            // repositoriosACOToolStripMenuItem
+            // 
+            this.repositoriosACOToolStripMenuItem.Name = "repositoriosACOToolStripMenuItem";
+            this.repositoriosACOToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.repositoriosACOToolStripMenuItem.Text = "Repositorios ACO";
+            this.repositoriosACOToolStripMenuItem.Click += new System.EventHandler(this.repositoriosACOToolStripMenuItem_Click);
+            // 
+            // emailToolStripMenuItem
+            // 
+            this.emailToolStripMenuItem.Name = "emailToolStripMenuItem";
+            this.emailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.emailToolStripMenuItem.Text = "Email";
+            this.emailToolStripMenuItem.Click += new System.EventHandler(this.emailToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.ClientSize = new System.Drawing.Size(779, 638);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.labelAdvice);
             this.Controls.Add(this.labelTurn);
             this.Controls.Add(this.btnReset);
@@ -405,6 +454,11 @@ namespace MainForm
         private System.Windows.Forms.ToolStripMenuItem inicioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem comienzaXToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem comienzaOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem contactoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gitHubToolStripMenuItem;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolStripMenuItem repositoriosACOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem emailToolStripMenuItem;
     }
 }
 

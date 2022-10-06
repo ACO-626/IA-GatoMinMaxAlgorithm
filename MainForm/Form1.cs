@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace MainForm
 {
@@ -386,5 +387,20 @@ namespace MainForm
             labelTurn.Text = "Turno O";
         }
         #endregion
+
+        private void gitHubToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"https://github.com/ACO-626/IA-GatoMinMaxAlgorithm");
+        }
+
+        private void repositoriosACOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"https://github.com/ACO-626");
+        }
+
+        private void emailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(" Email: ocampoalejandro.oc@gmail.com \n By ACO", "Contacto desarrollador");
+        }
     }
 }
