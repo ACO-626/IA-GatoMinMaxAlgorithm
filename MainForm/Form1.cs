@@ -194,7 +194,7 @@ namespace MainForm
         #endregion
 
         #region Función minimax
-        private int minimax(byte[] matrix, int profunidad,bool isMaximizing, byte signMax)
+        private int minimax(byte[] matrix, int profunidad,bool isMaximizing)
         {
             int puntuacion = checkWhoWin(); 
             if(puntuacion!=0)
@@ -204,14 +204,15 @@ namespace MainForm
 
             if (isMaximizing)
             {
-                int bestValue = -9999;
+                int bestValue = -999;
                 for (int i = 0; i < 9; i++)
                 {
                     //Si la posición esta disponible
                     if (matrixConceptual[i] == 0)
                     {
-                        matrixConceptual[i] = signMax;
-                        puntuacion = minimax(matrixConceptual, profunidad + 1, true, 1);
+                        //ai
+                        matrixConceptual[i] = 1;
+                        puntuacion = minimax(matrixConceptual, profunidad + 1, true);
                         matrixConceptual[i] = 0;
                         
                         if(puntuacion > bestValue)
@@ -225,14 +226,14 @@ namespace MainForm
             }
             else
             {
-                int bestValue = 9999;
+                int bestValue = +9999;
                 for (int i = 0; i < 9; i++)
                 {
                     //Si la posición esta disponible
                     if (matrixConceptual[i] == 0)
                     {
-                        matrixConceptual[i] = signMax;
-                        puntuacion = minimax(matrixConceptual, profunidad + 1, false, 4);
+                        matrixConceptual[i] = 4;
+                        puntuacion = minimax(matrixConceptual, profunidad + 1, false);
                         matrixConceptual[i] = 0;
                         if (puntuacion < bestValue)
                         {
@@ -390,7 +391,7 @@ namespace MainForm
 
             if (manoIA && tiroPC==false && !winer)
             {
-                int bestValue = -9999;
+                int bestValue = +9999;
                 int mejorTiro = 4;
                 
 
@@ -399,23 +400,16 @@ namespace MainForm
                     //Si la posición esta disponible
                     if (matrixConceptual[i] == 0)
                     {
-                        /*
-                        if (turnoX)
-                        {
-                            matrixConceptual[i] = 1;
-                        }
-                        else
-                        {
-                            matrixConceptual[i] = 4;
-                        }*/
+                        //byte minSig;
                         
-                        matrixConceptual[i] = 4;
                         
-                        int value = minimax(matrixConceptual,0,false,1);
+                        matrixConceptual[i] = 1;
+                        
+                        int value = minimax(matrixConceptual,0,false);
                         
                         matrixConceptual[i] = 0;
 
-                        if (value > bestValue)
+                        if (value < bestValue)
                         {
                             bestValue = value;
                             labelProve.Text = bestValue.ToString();
