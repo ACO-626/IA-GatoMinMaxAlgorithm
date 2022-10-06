@@ -16,6 +16,8 @@ namespace MainForm
         string simbol = "X";
         string simbolNXT = "O";
 
+        
+
         byte val = 0;
 
         byte row1 = 0;
@@ -29,6 +31,7 @@ namespace MainForm
 
 
         int[,] matrix = new int[3, 3];
+        bool[] matrixBool = new bool[9];
         #endregion
 
         #region Banderas
@@ -37,6 +40,8 @@ namespace MainForm
         bool manoIA = false;
 
         bool turnoX = true;
+        bool tiroPC = false;
+        bool winer = false;
 
         #endregion
 
@@ -50,6 +55,12 @@ namespace MainForm
                 {
                     matrix[i, j] = 0;
                 }
+            }
+            for (int i = 0; i < 9; i++)
+            {
+                
+                    matrixBool[i] = false;
+                
             }
         }
         #endregion
@@ -91,6 +102,7 @@ namespace MainForm
 
         private void reset()
         {
+            
             turnoX = true;
             label1.Text = " ";
             label2.Text = " ";
@@ -110,6 +122,8 @@ namespace MainForm
              column3 = 0;
              diag1 = 0;
              diag2 = 0;
+             winer = false;
+             enableGame(true);
         }
         #endregion
 
@@ -125,7 +139,7 @@ namespace MainForm
             }
             else
             {
-                simbol = "0";
+                simbol = "O";
                 simbolNXT = "X";
                 val = 4;
             }
@@ -237,6 +251,22 @@ namespace MainForm
                     break;
             }
             whoWin();
+
+            matrixBool[casilla-1] = true;
+
+            this.turnoX = !turnoX;
+            if (manoRandom &&  tiroPC==false && !winer)
+            {
+                Random random = new Random();
+                int azar = random.Next(9);
+                while(matrixBool[azar] == true)
+                {
+                    azar = random.Next(9);
+                }
+                tiroPC = true;
+                rellenar(azar+1, this.turnoX);
+                tiroPC = false;
+            }
             
         }
         #endregion
@@ -245,56 +275,56 @@ namespace MainForm
         private void label1_Click(object sender, EventArgs e)
         {
             rellenar(1, turnoX);
-            turnoX = !turnoX;
+            
 
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
             rellenar(2, turnoX);
-            turnoX = !turnoX;
+            
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
             rellenar(3, turnoX);
-            turnoX = !turnoX;
+           
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
             rellenar(4, turnoX);
-            turnoX = !turnoX;
+            
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
             rellenar(5, turnoX);
-            turnoX = !turnoX;
+            
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
             rellenar(6, turnoX);
-            turnoX = !turnoX;
+            
         }
 
         private void label7_Click(object sender, EventArgs e)
         {
             rellenar(7, turnoX);
-            turnoX = !turnoX;
+           
         }
 
         private void label8_Click(object sender, EventArgs e)
         {
             rellenar(8, turnoX);
-            turnoX = !turnoX;
+            
         }
 
         private void label9_Click(object sender, EventArgs e)
         {
             rellenar(9, turnoX);
-            turnoX = !turnoX;
+            
         }
         #endregion
 
@@ -306,14 +336,35 @@ namespace MainForm
             if(row1 == 3 || row2 == 3 || row3 == 3 || column1 == 3 || column2 == 3 || column3 == 3 || diag1 == 3 || diag2 == 3)
             {
                 labelTurn.Text = "El ganador es X";
+                enableGame(false);
+                winer = true;
             }else if(row1 == 12 || row2 == 12 || row3 == 12 || column1 == 12 || column2 == 12 || column3 == 12 || diag1 == 12 || diag2 == 12)
             {
                 labelTurn.Text = "El ganador es O";
+                enableGame(false);
+                winer = true;
             }
-            else
+            else if(!manoRandom)
             {
                 this.labelTurn.Text = "Turno " + simbolNXT;
             }
+
+        }
+        #endregion
+
+        #region DisableFuncion
+
+        private void enableGame(bool state)
+        {
+            label1.Enabled = state;
+            label2.Enabled = state;
+            label3.Enabled = state;
+            label4.Enabled = state;
+            label5.Enabled = state;
+            label6.Enabled = state;
+            label7.Enabled = state;
+            label8.Enabled = state;
+            label9.Enabled = state;
         }
         #endregion
 
