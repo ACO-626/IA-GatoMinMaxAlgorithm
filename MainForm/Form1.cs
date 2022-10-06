@@ -31,6 +31,7 @@ namespace MainForm
         byte diag2 = 0;
 
         byte turno=1;
+        byte valorWin=0;
 
         int[,] matrix = new int[3, 3];
         //bool[] matrixBool = new bool[9];
@@ -192,6 +193,60 @@ namespace MainForm
         }
         #endregion
 
+        #region Función minimax
+        private int minimax(byte[] matrix, int profunidad,bool isMaximizing, byte signMax)
+        {
+            int puntuacion = checkWhoWin(); 
+            if(puntuacion!=0)
+            {
+                return puntuacion;
+            }
+
+            if (isMaximizing)
+            {
+                int bestValue = -9999;
+                for (int i = 0; i < 9; i++)
+                {
+                    //Si la posición esta disponible
+                    if (matrixConceptual[i] == 0)
+                    {
+                        matrixConceptual[i] = signMax;
+                        puntuacion = minimax(matrixConceptual, profunidad + 1, false, 4);
+                        matrixConceptual[i] = 0;
+                        
+                        if(puntuacion > bestValue)
+                        {
+                            bestValue = puntuacion;
+                        }
+                    }
+                    
+                }
+                return bestValue;
+            }
+            else
+            {
+                int bestValue = 9999;
+                for (int i = 0; i < 9; i++)
+                {
+                    //Si la posición esta disponible
+                    if (matrixConceptual[i] == 0)
+                    {
+                        matrixConceptual[i] = 4;
+                        puntuacion = minimax(matrixConceptual, profunidad + 1, true, 1);
+                        matrixConceptual[i] = 0;
+                        if (puntuacion < bestValue)
+                        {
+                            bestValue = puntuacion;
+                        }
+                    }
+
+                }
+                return bestValue;
+            }
+            
+        }
+        #endregion
+
         #region FuncionRellenar
         private void rellenar(int casilla, bool turnoX)
         {
@@ -332,6 +387,48 @@ namespace MainForm
             //matrixBool[casilla-1] = true;
 
             this.turnoX = !turnoX;
+
+            if (manoIA && tiroPC==false && !winer)
+            {
+                int bestValue = -9999;
+                int mejorTiro = 4;
+                
+
+                for (int i=0; i<9; i++)
+                {
+                    //Si la posición esta disponible
+                    if (matrixConceptual[i] == 0)
+                    {
+                        /*
+                        if (turnoX)
+                        {
+                            matrixConceptual[i] = 1;
+                        }
+                        else
+                        {
+                            matrixConceptual[i] = 4;
+                        }*/
+                        
+                        matrixConceptual[i] = 4;
+                        
+                        int value = minimax(matrixConceptual,0,true,1);
+                        
+                        matrixConceptual[i] = 0;
+
+                        if (value > bestValue)
+                        {
+                            bestValue = value;
+                            labelProve.Text = bestValue.ToString();
+                            mejorTiro = i;
+                        }
+
+                    }
+                }
+                tiroPC = true;
+                rellenar(mejorTiro + 1, this.turnoX);
+                tiroPC = false;
+            }
+
             if (manoRandom &&  tiroPC==false && !winer)
             {
                 Random random = new Random();
@@ -415,16 +512,69 @@ namespace MainForm
                 labelTurn.Text = "El ganador es X";
                 enableGame(false);
                 winer = true;
+                valorWin = 1;
             }else if(row1 == 12 || row2 == 12 || row3 == 12 || column1 == 12 || column2 == 12 || column3 == 12 || diag1 == 12 || diag2 == 12)
             {
                 labelTurn.Text = "El ganador es O";
                 enableGame(false);
                 winer = true;
+                valorWin = 4;
             }
             else if(!manoRandom)
             {
                 this.labelTurn.Text = "Turno " + simbolNXT;
             }
+
+        }
+
+        private int checkWhoWin()
+        {
+            //Horizontal
+            int rowi0 = matrixConceptual[0] + matrixConceptual[1] + matrixConceptual[2];
+            int rowi1 = matrixConceptual[3] + matrixConceptual[4] + matrixConceptual[5];
+            int rowi2 = matrixConceptual[6] + matrixConceptual[7] + matrixConceptual[8];
+           
+            //Verticales
+            int verti0 = matrixConceptual[0] + matrixConceptual[3] + matrixConceptual[6];
+            int verti1 = matrixConceptual[1] + matrixConceptual[4] + matrixConceptual[7];
+            int verti2 = matrixConceptual[2] + matrixConceptual[5] + matrixConceptual[8];
+
+            //Diagonales
+            int diag0 = matrixConceptual[0] + matrixConceptual[4] + matrixConceptual[8];
+            int diag1 = matrixConceptual[2] + matrixConceptual[4] + matrixConceptual[6];
+
+            if (rowi0 == 12 || rowi1 == 12 || rowi2 == 12 || verti0 ==12 || verti1 == 12 || verti2 == 12 || diag0 == 12 || diag1 == 12)
+            {
+                return 1;
+            }else if(rowi0 == 3 || rowi1 == 3 || rowi2 == 3 || verti0 == 3 || verti1 == 3 || verti2 == 3 || diag0 == 3 || diag1 == 3)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+            
+
+            /*
+            if ( matrixConceptual[1] == 1)
+            {
+                labelTurn.Text = "El ganador es X";
+                enableGame(false);
+                winer = true;
+                valorWin = 1;
+            }
+            else if (row1 == 12 || row2 == 12 || row3 == 12 || column1 == 12 || column2 == 12 || column3 == 12 || diag1 == 12 || diag2 == 12)
+            {
+                labelTurn.Text = "El ganador es O";
+                enableGame(false);
+                winer = true;
+                valorWin = 4;
+            }
+            else if (!manoRandom)
+            {
+                this.labelTurn.Text = "Turno " + simbolNXT;
+            }*/
 
         }
         #endregion
